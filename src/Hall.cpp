@@ -25,15 +25,14 @@ void Hall::begin (){
   mqtt.subscribe("elevador/hall");   // escuta mensagens do elevador
 }
 
-void Hall::loop() {
+void Hall::loop (){
   mqtt.reconnect();
   mqtt.loop();
 
-  // se botão pressionado, publica chamada
-  if (digitalRead(PIN_BTN_CALL) == LOW) {
-    mqtt.publish("elevador/chamada", "1");  // envia pedido de chamada
-    delay(500); // debounce simples
-  }
+}
+
+const int Hall::call (){
+  mqtt.publish("elevador/chamada_andar", ""+FLOOR);  // envia pedido de chamada
 }
 
 void Hall::getMessage(char* topic, byte* payload, unsigned int length) {

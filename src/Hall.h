@@ -18,6 +18,7 @@ class Hall {
     void loop();
     void getMessage (char* topic, byte* payload, unsigned int length);
     const int getButton ();
+    const int call ();
     void setStatus (char* newState);
 };
 

@@ -19,8 +19,6 @@ Adafruit_ST7789 tft = Adafruit_ST7789(TFT_DC, TFT_RST, TFT_CS);
 */
 
 
-//int myFunction(int, int);
-
 void setup (){
   // int result = myFunction(2, 3);
   Serial.begin(115200);
@@ -32,28 +30,22 @@ void setup (){
 
   
 
-  }
+}
 
 void loop (){
   hall.loop();
   // Quando o botao do hall é pressionado:
   if (digitalRead(hall.getButton()) == LOW){
-    //hall.mqtt.publish();
-
+    hall.call();
+    delay(500); // debounce simples
     //digitalWrite(4, HIGH);
   }
   
   //delay(500);
   //digitalWrite(PIN_LED, LOW);
   
-  
-
 }
 
-// put function definitions here:
-// int myFunction(int x, int y) {
-//   return x + y;
-// }
 
 void getMessage (char* topic, byte* message, unsigned int length){
   String msg;
