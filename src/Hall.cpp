@@ -1,13 +1,13 @@
 #include "Hall.h"
 #include <mqttClient.h>
 
-MQTTClient mqtt("HallESP32");
+MQTTClient mqtt("ProjetoMInDS", "Doi39x-Wa!", "192.168.1.114", 1883, "HallESP32");
 
 Hall::Hall(const char* client_id, const int andar, const int botaoPin, const int ledPin)
   : mqtt(client_id), FLOOR(andar), PIN_BTN_CALL(botaoPin), PIN_LED_STATUS(ledPin) {}
 
 
-const int Hall::getButton(){return PIN_BTN_CALL;}
+const int Hall::getButton (){return PIN_BTN_CALL;}
 void Hall::setStatus (char* newState){status =newState;}
 
 void Hall::begin (){

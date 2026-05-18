@@ -16,8 +16,8 @@ class MQTTClient {
 
     public:
         MQTTClient(
-            //const char* ssid, const char* password,
-            //const char* mqtt_server, int mqtt_port,
+            const char* ssid, const char* password,
+            const char* mqtt_server, int mqtt_port,
             const char* client_id);
 
     void begin();

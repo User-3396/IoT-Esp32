@@ -5,13 +5,16 @@
 #include <Hall.cpp>
 //> Definição dos pinos de controle: --------------------------
 
+// Pinos Display:
 // #define TFT_DC    2   // Pino Data/Command
 // #define TFT_RST   4   // Pino Reset
 
-#define PIN_HALL_BTN 5 // Botao de chamada
+// Pinos Hall:
+#define PIN_LED 4 // Botao de chamada
+#define PIN_BTN_CALL 5 // Botao de chamada
 
-Hall hall("HallClient", 3, 5, 4);
-
+Hall hall("HallClient", 3, PIN_BTN_CALL, PIN_LED); // Instanciando classe do Hall
+// Instanciando classe do Display
 /* Para ST7789: -----------------------------------------------
 // Inicializa o display sem usar o pino CS (-1):
 //Adafruit_ST7789 tft = Adafruit_ST7789(-1, TFT_DC, TFT_RST);
@@ -24,7 +27,8 @@ void setup (){
   Serial.begin(115200);
   Serial.println("Inicializando Display ST7789 no ESP32...");
   
-  pinMode(PIN_HALL_BTN, INPUT_PULLUP); 
+  hall.begin();
+  pinMode(PIN_BTN_CALL, INPUT_PULLUP); 
   pinMode(4, OUTPUT);
   //digitalWrite(4, HIGH);
 

@@ -4,23 +4,18 @@
 #include <main.cpp>
 
 // Classe padrao MQTTClient para ambos os clientes (Cabine e Hall):
-MQTTClient::MQTTClient(const char* client_id)
-    : ssid("ProjetoMInDS"), password("Doi39x-Wa!"), mqtt_server("192.168.1.114"), mqtt_port(1883), client_id(client_id), client(espClient) {}
-
-// Função de inicialização
-void MQTTClient::begin (){
-    Serial.print("Inicializando MQTTClient");
-    WiFi.begin(ssid, password);
-    
-    while (WiFi.status() != WL_CONNECTED){
-        delay(500);
-        Serial.print(".");
-    }
-    
-    Serial.println("\nWiFi conectado!");
-    Serial.println("IP: " +WiFi.localIP().toString());
-    client.setServer(mqtt_server, mqtt_port);
-}
+MQTTClient::MQTTClient(
+    const char* ssid, 
+    const char* password, 
+    const char* mqtt_server, 
+    int mqtt_port, 
+    const char* client_id)
+    : ssid(ssid), 
+    password(password), 
+    mqtt_server(mqtt_server), 
+    mqtt_port(mqtt_port), 
+    client_id(client_id), 
+    client(espClient) {}
 
 // Função de reconexão de wifi, caso houver queda:
 void MQTTClient::reconnect (){
@@ -55,6 +50,25 @@ void MQTTClient::subscribe (const char* topic){
 // Função para publicar num topico
 void MQTTClient::publish (const char* topic, const char* payload){
     client.publish(topic, payload);
+}
+
+// Função de inicialização
+void MQTTClient::begin (){
+    Serial.print("Inicializando MQTTClient");
+    WiFi.begin(ssid, password);
+    
+    while (WiFi.status() != WL_CONNECTED){
+        delay(500);
+        Serial.print(".");
+    }
+    
+    Serial.println("\nWiFi conectado!");
+    Serial.println("IP: " +WiFi.localIP().toString());
+    client.setServer(mqtt_server, mqtt_port);
+}
+
+void MQTTClient::loop (){
+
 }
 
 // Configurações MQTT

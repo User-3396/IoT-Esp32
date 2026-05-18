@@ -7,6 +7,7 @@
 class Hall {
   private:
     MQTTClient mqtt;         // cliente MQTT específico do Hall
+    const char* mqtt;         
     const int PIN_BTN_CALL;  // pino do botão de chamada
     const int PIN_LED_STATUS;      // pino do LED indicador da cabine no local
     const int FLOOR;               // andar do hall
