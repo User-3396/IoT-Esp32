@@ -9,11 +9,14 @@ MQTTClient::MQTTClient(const char* client_id)
 
 // Função de inicialização
 void MQTTClient::begin (){
+    Serial.print("Inicializando MQTTClient");
     WiFi.begin(ssid, password);
-    while (WiFi.status() != WL_CONNECTED) {
+    
+    while (WiFi.status() != WL_CONNECTED){
         delay(500);
         Serial.print(".");
     }
+    
     Serial.println("\nWiFi conectado!");
     Serial.println("IP: " +WiFi.localIP().toString());
     client.setServer(mqtt_server, mqtt_port);
@@ -30,17 +33,11 @@ void MQTTClient::reconnect (){
         else{
             Serial.print("Falha, rc=");
             Serial.print(client.state());
-            Serial.println(" tentando novamente em 5s");
-            delay(1000);
-            Serial.print(".");
-            delay(1000);
-            Serial.print(".");
-            delay(1000);
-            Serial.print(".");
-            delay(1000);
-            Serial.print(".");
-            delay(1000);
-            Serial.print(".");
+            Serial.println(" tentando novamente em 5s"); delay(1000);
+            Serial.print("."); delay(1000);
+            Serial.print("."); delay(1000);
+            Serial.print("."); delay(1000);
+            Serial.print("."); delay(1000);
         }
     }
 }

@@ -1,9 +1,8 @@
 #include <Arduino.h>
 #include <Adafruit_ILI9341.h>
 #include <SPI.h>
-#include <mqttClient.h>
 #include <display_ILI9341.cpp>
-
+#include <Hall.cpp>
 //> Definição dos pinos de controle: --------------------------
 
 // #define TFT_DC    2   // Pino Data/Command
@@ -11,6 +10,7 @@
 
 #define PIN_HALL_BTN 5 // Botao de chamada
 
+Hall hall("HallClient", 3, 5, 4);
 
 /* Para ST7789: -----------------------------------------------
 // Inicializa o display sem usar o pino CS (-1):
@@ -18,7 +18,6 @@
 Adafruit_ST7789 tft = Adafruit_ST7789(TFT_DC, TFT_RST, TFT_CS);
 */
 
-MQTTClient mqtt("HallESP32");
 
 //int myFunction(int, int);
 
@@ -33,17 +32,16 @@ void setup (){
 
   
 
-  mqtt.begin(); // inicialização da classe
-  mqtt.setCallback(getMessage);
-  mqtt.subscribe("grupo5/elevador/andar_atual"); // inscrição para receber o andar em que a cabine está
-  mqtt.subscribe("grupo5/elevador/chegada"); // inscrição para saber se a cabine chegou
-}
+  }
 
 void loop (){
-  
-  //if (digitalRead(PIN_HALL_BTN) == LOW){
+  hall.loop();
+  // Quando o botao do hall é pressionado:
+  if (digitalRead(hall.getButton()) == LOW){
+    hall.mqtt.publish();
+
     //digitalWrite(4, HIGH);
-  //}
+  }
   
   //delay(500);
   //digitalWrite(PIN_LED, LOW);
