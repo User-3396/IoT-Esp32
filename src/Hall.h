@@ -2,7 +2,7 @@
 #define HALL_H
 
 // #include <Arduino.h>
-#include "mqttClient.h"   // usa sua classe MQTTClient
+// #include "mqttClient.h"   // usa sua classe MQTTClient
 
 class Hall {
   private:

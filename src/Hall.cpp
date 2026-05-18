@@ -11,9 +11,6 @@ Hall::Hall(const char* client_id, const int andar)//, const int botaoPin, const 
 void Hall::setCabinState (char* newState){cabinState =newState;}
 
 void Hall::begin (){
-  //pinMode(PIN_BTN_CALL, INPUT_PULLUP);
-  //pinMode(PIN_LED_STATUS, OUTPUT);
-  
   mqtt.begin(); // inicialização da classe
   mqtt.subscribe("grupo5/elevador/andar_atual"); // inscrição para receber o andar em que a cabine está
   mqtt.subscribe("grupo5/elevador/chegada"); // inscrição para saber se a cabine chegou
