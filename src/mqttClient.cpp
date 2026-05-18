@@ -4,9 +4,9 @@
 #include <main.cpp>
 
 MQTTClient::MQTTClient(const char* client_id)
-    : ssid("..."), password("..."), mqtt_server("..."), mqtt_port(1883), client_id(client_id), client(espClient) {}
+    : ssid("ProjetoMInDS"), password("Doi39x-Wa!"), mqtt_server("192.168.1.114"), mqtt_port(1883), client_id(client_id), client(espClient) {}
 
-void MQTTClient::begin() {
+void MQTTClient::begin (){
     WiFi.begin(ssid, password);
     while (WiFi.status() != WL_CONNECTED) {
         delay(500);
@@ -16,7 +16,7 @@ void MQTTClient::begin() {
     client.setServer(mqtt_server, mqtt_port);
 }
 
-void MQTTClient::reconnect(){
+void MQTTClient::reconnect (){
     while (!client.connected()){
         Serial.print("Conectando ao MQTT...");
 
