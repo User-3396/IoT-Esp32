@@ -38,7 +38,7 @@ void loop (){
   hall.loop();
   // Quando o botao do hall é pressionado:
   if (digitalRead(hall.getButton()) == LOW){
-    hall.mqtt.publish();
+    //hall.mqtt.publish();
 
     //digitalWrite(4, HIGH);
   }
