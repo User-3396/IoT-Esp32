@@ -33,34 +33,40 @@ void setup (){
   //digitalWrite(4, HIGH);
 
   
-
 }
 
 void loop (){
   hall.loop();
   //tft.setText(hall.getFloorCabin());
-  
+
   // Quando o botao do hall é pressionado:
   if (digitalRead(PIN_BTN_CALL) == LOW){
     hall.call();
+    // tft.setText("Chamando cabine...");
+    digitalWrite(PIN_LED, HIGH);
     delay(500); // debounce simples
-    //digitalWrite(4, HIGH);
+    // tft.setText("Chamando cabine...");
+    digitalWrite(PIN_LED, LOW);
   }
   
   //delay(500);
-  //digitalWrite(PIN_LED, LOW);
+  
+  // Atualizando estado da cabine: 
+  if (hall.getCabinState () == "SIM"){
+    //tft.setText("Chegou!");
+  }
   
 }
 
 
-void getMessage (char* topic, byte* message, unsigned int length){
-  String msg;
+// void getMessage (char* topic, byte* message, unsigned int length){
+//   String msg;
 
-  for (int i = 0; i < length; i++) msg += (char)message[i];
+//   for (int i = 0; i < length; i++) msg += (char)message[i];
   
 
-}
+// }
 
-void setMessage (char* topic, char* msg){
-  mqtt.publish(topic, msg);
-}
+// void setMessage (char* topic, char* msg){
+//   mqtt.publish(topic, msg);
+// }

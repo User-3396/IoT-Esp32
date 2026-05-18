@@ -12,7 +12,7 @@ class Hall {
     //const int PIN_LED_STATUS;  // pino do LED indicador da cabine no local
     const int FLOOR;             // andar do hall
     int floorCabin;              // andar da cabine
-    char* status;
+    char* cabinState;
 
   public:
     Hall(const char* client_id, const int andar);//, const int botaoPin, const int ledPin);
@@ -21,9 +21,12 @@ class Hall {
     void getMessage (char* topic, byte* payload, unsigned int length);
     //const int getButton ();
     const int call ();
-    void setStatus (char* newState);
+    // Getters:
+    char* getCabinState ();
     int getFloorCabin (int andar);
+    // Setters:
     void setFloorCabin (int andar);
+    void setCabinState (char* newState);
 };
 
 #endif
