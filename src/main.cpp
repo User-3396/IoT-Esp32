@@ -6,14 +6,14 @@
 //> Definição dos pinos de controle: --------------------------
 
 // Pinos Display:
-// #define TFT_DC    2   // Pino Data/Command
-// #define TFT_RST   4   // Pino Reset
+#define TFT_DC    2   // Pino Data/Command
+#define TFT_RST   4   // Pino Reset
 
 // Pinos Hall:
 #define PIN_LED 4 // Botao de chamada
 #define PIN_BTN_CALL 5 // Botao de chamada
 
-Hall hall("HallClient", 3, PIN_BTN_CALL, PIN_LED); // Instanciando classe do Hall
+Hall hall("Hall-001", 3); // Instanciando classe do Hall (nome_cliente_mqtt, andar)
 // Instanciando classe do Display
 /* Para ST7789: -----------------------------------------------
 // Inicializa o display sem usar o pino CS (-1):
@@ -38,8 +38,10 @@ void setup (){
 
 void loop (){
   hall.loop();
+  //tft.setText(hall.getFloorCabin());
+  
   // Quando o botao do hall é pressionado:
-  if (digitalRead(hall.getButton()) == LOW){
+  if (digitalRead(PIN_BTN_CALL) == LOW){
     hall.call();
     delay(500); // debounce simples
     //digitalWrite(4, HIGH);
