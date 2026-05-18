@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "author": "Correcao de Hardware",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp1", "top": 86.4, "left": 192, "attrs": {} },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn1",
+      "top": 83,
+      "left": 508.8,
+      "attrs": { "color": "red" }
+    },
+    { "type": "chip-st7789", "id": "display1", "top": 385.02, "left": 129.6, "attrs": {} },
+    { "type": "wokwi-ili9341", "id": "lcd1", "top": -354.4, "left": 143.7, "attrs": {} },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": 200.4,
+      "left": 486.6,
+      "rotate": 90,
+      "attrs": { "color": "red" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 224.75,
+      "left": 393.6,
+      "attrs": { "value": "1000" }
+    }
+  ],
+  "connections": [
+    [ "esp1:GND.1", "display1:GND", "black", [ "h-67.05", "v76.8", "v153.6" ] ],
+    [ "esp1:3V3", "display1:VCC", "red", [ "h-9.45", "h-67.2", "v364.8" ] ],
+    [ "esp1:18", "display1:SCK", "yellow", [ "h19.2", "v144", "h-201.6", "v153.6" ] ],
+    [ "esp1:23", "display1:SDA", "blue", [ "h57.6", "v201.6", "h-249.6", "v172.8" ] ],
+    [ "esp1:4", "display1:RST", "green", [ "h0" ] ],
+    [ "esp1:2", "display1:DC", "orange", [ "h57.6", "h57.6", "v240" ] ],
+    [ "esp1:3V3", "display1:BLK", "red", [ "h-19.05", "v240", "h220.8", "v105.6" ] ],
+    [ "lcd1:VCC", "esp1:3V3", "red", [ "v38.4", "h-28.8", "v144" ] ],
+    [ "lcd1:GND", "esp1:GND.1", "black", [ "v28.8", "h-48", "v278.4" ] ],
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "lcd1:GND", "esp1:GND.2", "black", [ "v57.6", "h86.4" ] ],
+    [ "lcd1:D/C", "esp1:2", "gold", [ "v38.4", "h96", "v278.4" ] ],
+    [ "lcd1:SCK", "esp1:18", "gray", [ "v19.2", "h67.19", "v240" ] ],
+    [ "lcd1:MISO", "esp1:19", "gray", [ "v9.6", "h38.39", "v240" ] ],
+    [ "lcd1:MOSI", "esp1:23", "gray", [ "v28.8", "h57.59", "v163.2" ] ],
+    [ "esp1:5V", "lcd1:VCC", "red", [ "h-47.85", "v-336", "h48" ] ],
+    [ "lcd1:CS", "esp1:15", "violet", [ "v48", "h124.8", "v278.4" ] ],
+    [ "esp1:GND.2", "btn1:2.l", "black", [ "h182.4", "h38.4" ] ],
+    [ "esp1:5", "btn1:1.l", "green", [ "h67.2", "h124.8", "v-105.6" ] ],
+    [ "esp1:4", "r1:1", "green", [ "h0" ] ],
+    [ "r1:2", "led1:A", "green", [ "v0" ] ],
+    [ "esp1:GND.2", "led1:C", "black", [ "h172.8", "v105.6", "h28.8" ] ]
+  ],
+  "dependencies": {}
+}
