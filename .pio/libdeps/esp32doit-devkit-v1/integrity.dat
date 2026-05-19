@@ -1,2 +1,3 @@
-adafruit/Adafruit ILI9341@^1.6.3
 knolleary/PubSubClient@^2.8
+adafruit/Adafruit ILI9341@^1.6.3
+bblanchon/ArduinoJson @ ^6.21.3

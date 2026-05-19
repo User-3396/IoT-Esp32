@@ -6,23 +6,21 @@
 
 class MQTTClient {
     private:
-        WiFiClient espClient;
-        PubSubClient client;
-        const char* ssid;
-        const char* password;
-        const char* mqtt_server;
-        int mqtt_port;
-        const char* client_id;
+        WiFiClient _espClient;
+        const char* _client_id;
+        PubSubClient _client;
+        const char* _ssid;
+        const char* _password;
+        const char* _server;
+        const int _port;
 
     public:
-        MQTTClient(
-            const char* ssid, const char* password,
-            const char* mqtt_server, int mqtt_port,
-            const char* client_id);
+        MQTTClient(const char* client_id);
 
     void begin();
     void loop();
-    void reconnect();
+    void setupWifi();
+    void checkWifiConnection();
     void setCallback(MQTT_CALLBACK_SIGNATURE);
     void subscribe(const char* topic);
     void publish(const char* topic, const char* payload);

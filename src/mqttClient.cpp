@@ -3,31 +3,69 @@
 #include <mqttClient.h>
 #include <main.cpp>
 
+WiFiClient hallClient;
+PubSubClient mqttClient(hallClient);
+
+//Wifi login
+const char* ssid ="ProjetoMInDS";
+const char* password ="Doi39x-Wa!";
+
+// Broker MQTT
+const char* mqttServer ="192.168.1.114";
+const int mqttPort =1883; //"HallESP32"
+const char* pubTopic ="grupo5/hall/chamada_andar"; // tópico de saída/publicação
+const char* subTopic = "grupo5/elevador/andar_atual"; // tópico de entrada/assinatura
+const char* subTopic2 = "grupo5/elevador/chegada"; // tópico de entrada/assinatura
+
+
 // Classe padrao MQTTClient para ambos os clientes (Cabine e Hall):
-MQTTClient::MQTTClient(
-    const char* ssid, 
-    const char* password, 
-    const char* mqtt_server, 
-    int mqtt_port, 
-    const char* client_id)
-    : ssid(ssid), 
-    password(password), 
-    mqtt_server(mqtt_server), 
-    mqtt_port(mqtt_port), 
-    client_id(client_id), 
-    client(espClient) {}
+MQTTClient::MQTTClient(const char* client_id)
+    : _ssid(ssid), 
+    _password(password), 
+    _server(mqttServer), 
+    _port(mqttPort), 
+    _client_id(client_id), 
+    _client(hallClient) {}
+
+
+// Função de inicialização
+void MQTTClient::begin (){
+    Serial.println("Inicializando MQTTClient...");
+    setupWifi (); // configurando conexão wifi
+
+}
+
+void MQTTClient::loop (){
+    
+}
+
+
+void MQTTClient::setupWifi (){
+    WiFi.begin(ssid, password);
+    
+    Serial.println("Conectando ao wifi");
+    while (WiFi.status() != WL_CONNECTED){
+        delay(500);
+        Serial.print(".");
+    }
+    
+    Serial.println("\nWiFi conectado!");
+    Serial.println("IP: " +WiFi.localIP().toString());
+    _client.setServer(mqttServer, mqttPort);
+
+}
 
 // Função de reconexão de wifi, caso houver queda:
-void MQTTClient::reconnect (){
-    while (!client.connected()){
-        Serial.print("Conectando ao broker MQTT...");
+void MQTTClient::checkWifiConnection (){
+    while (!_client.connected()){
+        Serial.println("Sem conexão wifi.");
 
-        if (client.connect(client_id)){
+        if (_client.connect(_client_id)){
             Serial.println("Conectado!");
         }
         else{
             Serial.print("Falha, rc=");
-            Serial.print(client.state());
+            Serial.print(_client.state());
             Serial.println(" tentando novamente em 5s"); delay(1000);
             Serial.print("."); delay(1000);
             Serial.print("."); delay(1000);
@@ -39,43 +77,23 @@ void MQTTClient::reconnect (){
 
 // 
 void MQTTClient::setCallback (MQTT_CALLBACK_SIGNATURE){
-    client.setCallback(callback);
+    _client.setCallback(callback);
 }
 
 // Função para se inscrever em um topico
 void MQTTClient::subscribe (const char* topic){
-    client.subscribe(topic);
+    _client.subscribe(subTopic); // inscrição para receber o andar em que a cabine está
+    _client.subscribe(subTopic2); // inscrição para saber se a cabine chegou
 }
 
 // Função para publicar num topico
 void MQTTClient::publish (const char* topic, const char* payload){
-    client.publish(topic, payload);
+    _client.publish(topic, payload);
 }
 
-// Função de inicialização
-void MQTTClient::begin (){
-    Serial.print("Inicializando MQTTClient...");
-    WiFi.begin(ssid, password);
-    
-    while (WiFi.status() != WL_CONNECTED){
-        delay(500);
-        Serial.print(".");
-    }
-    
-    Serial.println("\nWiFi conectado!");
-    Serial.println("IP: " +WiFi.localIP().toString());
-    client.setServer(mqtt_server, mqtt_port);
-}
 
-void MQTTClient::loop (){
-    
-}
 
-// Configurações MQTT
-//const char* mqtt_server = "broker.hivemq.com";  // Pode usar HiveMQ público ou Mosquitto local
-//const char* mqtt_topic_pub = "grupo5/hall/chamada_andar";
-//const char* mqtt_topic_sub = "grupo5/elevador/andar_atual";
-//const char* mqtt_topic_sub2 = "grupo5/elevador/chegada";
+
 
 //WiFiClient espClient;
 //PubSubClient client(espClient);

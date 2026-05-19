@@ -1,21 +1,26 @@
 #include "Hall.h"
 #include <mqttClient.h>
+#include <ArduinoJson.h>
 
-MQTTClient mqtt("ProjetoMInDS", "Doi39x-Wa!", "192.168.1.114", 1883, "HallESP32");
+#define MSG_SIZE 1024
 
-Hall::Hall(const char* client_id, const int andar)//, const int botaoPin, const int ledPin)
-  : mqttClient(client_id), FLOOR(andar){}//, PIN_BTN_CALL(botaoPin), PIN_LED_STATUS(ledPin) {}
 
+DynamicJsonDocument doc(MSG_SIZE);
+DynamicJsonDocument doc_send(MSG_SIZE);
+
+MQTTClient mqtt("Hall-001");
+
+Hall::Hall(const int andar) : FLOOR(andar){}
 
 //const int Hall::getButton (){return PIN_BTN_CALL;}
 void Hall::setCabinState (char* newState){cabinState =newState;}
 
+// Inicializando:
 void Hall::begin (){
-  mqtt.begin(); // inicialização da classe
-  mqtt.subscribe("grupo5/elevador/andar_atual"); // inscrição para receber o andar em que a cabine está
-  mqtt.subscribe("grupo5/elevador/chegada"); // inscrição para saber se a cabine chegou
+  mqtt.begin(); // inicialização da classe MQTT
 
   mqtt.setCallback([this](char* topic, byte* payload, unsigned int length) {
+    // Chamada interna: delega para getMessage()
     this->getMessage(topic, payload, length);
   });
 
@@ -23,7 +28,7 @@ void Hall::begin (){
 }
 
 void Hall::loop (){
-  mqtt.reconnect();
+  mqtt.checkWifiConnection();
   mqtt.loop();
 
 }
@@ -31,6 +36,7 @@ void Hall::loop (){
 // Função para publicar chamada à cabine:
 const int Hall::call (){
   mqtt.publish("elevador/chamada_andar",(char*)FLOOR);  // envia pedido de chamada
+
 }
 
 // Setters: 
@@ -58,7 +64,33 @@ void Hall::getMessage(char* topic, byte* payload, unsigned int length) {
     else{setCabinState("NAO");}
   }
 
+
+  //Apenas mostra a mensagem recebida, sem processar. Também transforma o payload em string para facilitar a leitura.
+  // String message;
+  // Serial.print("MQTT Recv: ");
+  // for (int i = 0; i < length; i++){
+  // message += (char)payload[i];
+  // }
+  // Serial.println(message);
+
+  //Deserializa e processa a mensagem recebida
+  // doc.clear();
+  // deserializeJson(doc, message);
+  
+  // if (strcmp(topic, sub_topic) == 0){
+  //     int andarDestino = doc["andarDestino"];
+  //     Serial.print("Andar destino recebido: ");
+  //     Serial.println(andarDestino);
+
+  //     if (andarDestino >= 0 && andarDestino <= ULTIMO_ANDAR){
+  //         elevador.setAndarDestino(andarDestino);
+  //     }
+  // }
+
 }
+
+
+
 
 // Getters: 
 int Hall::getFloorCabin (int andar){return floorCabin;}
