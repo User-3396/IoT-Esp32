@@ -17,26 +17,29 @@ void Hall::setCabinState (char* newState){cabinState =newState;}
 
 // Inicializando:
 void Hall::begin (){
-  mqtt.begin(); // inicialização da classe MQTT
+  mqtt.begin(); // inicialização da classe e conexão MQTT
 
   mqtt.setCallback([this](char* topic, byte* payload, unsigned int length) {
     // Chamada interna: delega para getMessage()
     this->getMessage(topic, payload, length);
   });
 
-  mqtt.subscribe("elevador/hall");   // escuta mensagens do elevador
+  
 }
 
 void Hall::loop (){
-  mqtt.checkWifiConnection();
   mqtt.loop();
 
 }
 
 // Função para publicar chamada à cabine:
 const int Hall::call (){
-  mqtt.publish("elevador/chamada_andar",(char*)FLOOR);  // envia pedido de chamada
-
+  doc_send.clear();
+  doc_send["andarDestino"] = FLOOR;
+  char buffer[MSG_SIZE];
+  serializeJson(doc_send, buffer);
+  mqtt.publish (buffer);  // envia pedido de chamada
+  // Possivel alteração no método publish de origem, a aplicar o parâmetro 'plength'
 }
 
 // Setters: 
@@ -45,7 +48,13 @@ const int Hall::call (){
 void Hall::setFloorCabin (int newFloor){floorCabin =newFloor;}
 
 // Função ativada/excutada ao receber uma publicação:
-void Hall::getMessage(char* topic, byte* payload, unsigned int length) {
+void Hall::getMessage (char* topic, byte* payload, unsigned int length){
+  DeserializationError error =deserializeJson(doc, payload, length);
+
+  if (!error){
+int andar =doc[]
+  }
+
   String msg;
 
   // Conversão do payload/publicação para String:

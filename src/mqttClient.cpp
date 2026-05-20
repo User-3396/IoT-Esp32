@@ -3,8 +3,8 @@
 #include <mqttClient.h>
 #include <main.cpp>
 
-WiFiClient hallClient;
-PubSubClient mqttClient(hallClient);
+WiFiClient wifi;
+PubSubClient mqttClient;
 
 //Wifi login
 const char* ssid ="ProjetoMInDS";
@@ -25,18 +25,20 @@ MQTTClient::MQTTClient(const char* client_id)
     _server(mqttServer), 
     _port(mqttPort), 
     _client_id(client_id), 
-    _client(hallClient) {}
+    _client(wifi) {}
 
 
 // Função de inicialização
 void MQTTClient::begin (){
     Serial.println("Inicializando MQTTClient...");
     setupWifi (); // configurando conexão wifi
-
+    _client.subscribe(subTopic); // inscrição para receber o andar em que a cabine está
+    _client.subscribe(subTopic2); // inscrição para saber se a cabine chegou
 }
 
 void MQTTClient::loop (){
-    
+    MQTTConnectionCheckup();
+    _client.loop(); //processar as mensagens recebidas
 }
 
 
@@ -55,10 +57,10 @@ void MQTTClient::setupWifi (){
 
 }
 
-// Função de reconexão de wifi, caso houver queda:
-void MQTTClient::checkWifiConnection (){
+// Função de reconexão do mqtt, caso houver queda:
+void MQTTClient::MQTTConnectionCheckup (){
     while (!_client.connected()){
-        Serial.println("Sem conexão wifi.");
+        Serial.println("Cliente MQTT desconectado.");
 
         if (_client.connect(_client_id)){
             Serial.println("Conectado!");
@@ -80,15 +82,9 @@ void MQTTClient::setCallback (MQTT_CALLBACK_SIGNATURE){
     _client.setCallback(callback);
 }
 
-// Função para se inscrever em um topico
-void MQTTClient::subscribe (const char* topic){
-    _client.subscribe(subTopic); // inscrição para receber o andar em que a cabine está
-    _client.subscribe(subTopic2); // inscrição para saber se a cabine chegou
-}
-
 // Função para publicar num topico
-void MQTTClient::publish (const char* topic, const char* payload){
-    _client.publish(topic, payload);
+void MQTTClient::publish (const char* payload){
+    _client.publish(pubTopic, payload);
 }
 
 
@@ -136,19 +132,6 @@ void callback (char* topic, byte* message, unsigned int length){
     // }
 }
 
-void setupMqtt (){
-    // Conectando ao WiFi:
-    WiFi.begin(ssid, password);
-    while (WiFi.status() != WL_CONNECTED){
-        delay(500);
-        Serial.print(".");
-    }
-    Serial.println("WiFi conectado!");
-
-  // Configurando MQTT:
-    client.setServer(mqtt_server, mqtt_port);
-    client.setCallback(callback);
-}
 
 // Atualiza o estado da conexao:
 void checkConnection (){
