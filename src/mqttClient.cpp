@@ -14,8 +14,8 @@ const char* password ="Doi39x-Wa!";
 const char* mqttServer ="192.168.1.114";
 const int mqttPort =1883; //"HallESP32"
 const char* pubTopic ="grupo5/hall/chamada_andar"; // tópico de saída/publicação
-const char* subTopic = "grupo5/elevador/andar_atual"; // tópico de entrada/assinatura
-const char* subTopic2 = "grupo5/elevador/chegada"; // tópico de entrada/assinatura
+const char* subTopic = "grupo5/elevador/estado"; // tópico de entrada/assinatura
+// const char* subTopic2 = "grupo5/elevador/chegada"; // tópico de entrada/assinatura
 
 
 // Classe padrao MQTTClient para ambos os clientes (Cabine e Hall):
@@ -33,7 +33,7 @@ void MQTTClient::begin (){
     Serial.println("Inicializando MQTTClient...");
     setupWifi (); // configurando conexão wifi
     _client.subscribe(subTopic); // inscrição para receber o andar em que a cabine está
-    _client.subscribe(subTopic2); // inscrição para saber se a cabine chegou
+    // _client.subscribe(subTopic2); // inscrição para saber se a cabine chegou
 }
 
 void MQTTClient::loop (){

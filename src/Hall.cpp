@@ -58,21 +58,21 @@ void Hall::getMessage (char* topic, byte* payload, unsigned int length){
   DeserializationError error =deserializeJson(doc, payload, length);
 
   if (!error){
-    if (strcmp(topic, "grupo5/elevador/andar_atual") == 0){
+    if (strcmp(topic, "grupo5/elevador/estado") == 0){
       // Quando recebe publicação do andar em que a cabine está:
       int andar =doc["andar_atual"];
+      bool chegada =doc["elevador_chegada"];
       setFloorCabin (andar);
+      setCabinState(chegada);
     }
   
-    else if (strcmp(topic, "grupo5/elevador/chegada") == 0){
+    // else if (strcmp(topic, "grupo5/elevador/chegada") == 0){
       // Quando recebe publicação de a cabine estar no andar do hall:
-      bool chegada =doc["elevador_chegada"];
-      setCabinState(chegada);
       
-    }
-    else if (strcmp(topic, "grupo5/elevador/chegada") == 0){
+      // }
+      // else if (strcmp(topic, "grupo5/elevador/chegada") == 0){
 
-    }
+    // }
     // conversão do numero textual para inteiro:
     //setFloorCabin (msg.toInt());
   }
