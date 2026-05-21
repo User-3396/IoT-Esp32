@@ -5,12 +5,12 @@ class Hall {
   private:
     //MQTTClient mqtt;         // cliente MQTT específico do Hall
     const char* _mqttClient;         
-    const int _FLOOR;             // andar do hall
+    int _FLOOR;             // andar do hall
     int _floorCabin;              // andar da cabine
     bool _cabinState;
 
   public:
-    Hall(const int andar);//, const int botaoPin, const int ledPin);
+    Hall(int andar);//, const int botaoPin, const int ledPin);
     void begin();
     void loop();
     void getMessage (char* topic, byte* payload, unsigned int length);

@@ -13,7 +13,9 @@ DynamicJsonDocument doc_send(MSG_SIZE);
 // Declaração da classe MQTT
 MQTTClient mqtt(clientName);
 
-Hall::Hall(const int andar) : _FLOOR(andar){}
+Hall::Hall(int andar){
+  _FLOOR = andar;
+}
 
 //const int Hall::getButton (){return PIN_BTN_CALL;}
 void Hall::setCabinState (bool newState){_cabinState =newState;}
