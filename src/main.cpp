@@ -27,6 +27,7 @@ Hall hall(3); // Instanciando classe do Hall (nome_cliente_mqtt, andar)
 Adafruit_ST7789 tft = Adafruit_ST7789(TFT_DC, TFT_RST, TFT_CS);
 */
 
+//int debounce =300;
 
 void setup (){
   Serial.begin(115200);
@@ -38,10 +39,10 @@ void setup (){
 
   // Configurando pinos:
   pinMode(PIN_BTN_CALL, INPUT_PULLUP); // botão de chamada
-  pinMode(PIN_LED_A, OUTPUT);          // led auxiliar
-  pinMode(PIN_LED1, OUTPUT);          // led de chegada (left 1)r
-  pinMode(PIN_LED2, OUTPUT);         // led de chegada (left 2)
-  pinMode(PIN_LED3, OUTPUT);        // led de chegada (left 3)
+  pinMode(PIN_LED_A, OUTPUT);         // led auxiliar
+  pinMode(PIN_LED1, OUTPUT);         // led de chegada (left 1)r
+  pinMode(PIN_LED2, OUTPUT);        // led de chegada (left 2)
+  pinMode(PIN_LED3, OUTPUT);       // led de chegada (left 3)
   
   
 }
@@ -54,6 +55,7 @@ void loop (){
   
   if (hall.getState ()){
     // (Quando o hall está esperando interação no botão de chamada)
+    
     if (digitalRead(PIN_BTN_CALL) == LOW){
       // (Quando o botao do hall é pressionado)
       
@@ -69,25 +71,29 @@ void loop (){
 
     if (!hall.getCabinState ()){
       //(Quando a cabine não chegou ainda no andar)
-      digitalWrite(PIN_LED_A, HIGH); // sinal led de cabine em demanda do chamado
       
+      digitalWrite(PIN_LED_A, HIGH); // sinal led de cabine em demanda do chamado
     }
     else{
       //tft.setText("Chegou!", hall.getFloorCabin ());
       
       if (hall.getCabinDoor ()){
         //(Quando a cabine está com a porta aberta, no andar)
-        digitalWrite(PIN_LED_A, !digitalRead(PIN_LED_A)); // piscar sinal de porta aberta
-      }
 
+        digitalWrite(PIN_LED_A, !digitalRead(PIN_LED_A)); // piscar sinal de porta aberta
+        
+        delay(600); // time do LED auxiliar
+        return; // alteração de fluxo
+      }
     }
   }
 
   hall.setLastFloorCabin (hall.getCabinFloor ()); // atualizando auxiliar
-  delay(500); // debounce simples
+  
+  delay(300); // debounce simples
 }
 
-// Função para ligar LED de proximidade
+// > Função para ligar LED de proximidade ----------------------------------
 void setFloorLed (int origin, int last, int current){
   int dis =abs(origin -last); // distancia do andar anterior da cabine
   
@@ -97,10 +103,9 @@ void setFloorLed (int origin, int last, int current){
 
   if (dis != 0) digitalWrite(ledAndar (dis <= 3 ? dis : 3), HIGH); // acende led de distância da cabine
 
-
 }
 
-// Função para retornar o pino de led correspondente ao distanciamento de andar
+// > Função para retornar o pino de led correspondente ao distanciamento de andar
 int ledAndar (int x){
   switch (x){
     case 1: return PIN_LED1;

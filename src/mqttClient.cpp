@@ -37,8 +37,8 @@ void MQTTClient::begin (){
 }
 
 void MQTTClient::loop (){
-    MQTTConnectionCheckup();
-    _client.loop(); //processar as mensagens recebidas
+    MQTTConnectionCheckup ();
+    _client.loop(); // processar/atualizar as mensagens recebidas
 }
 
 // Inicializando conexão com o wifi
@@ -60,6 +60,7 @@ void MQTTClient::setupWifi (){
 
 // Função de reconexão do mqtt, caso houver queda:
 void MQTTClient::MQTTConnectionCheckup (){
+    
     if (!_client.connected()){Serial.println("Cliente MQTT desconectado.");}
 
     while (!_client.connected()){

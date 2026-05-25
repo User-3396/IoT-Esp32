@@ -33,7 +33,6 @@ void Hall::begin (){
     // Chamada interna: delega para getMessage()
     this->getMessage(topic, payload, length);
   });
-
 }
 
 void Hall::loop (){
@@ -43,14 +42,14 @@ void Hall::loop (){
 // Função para publicar chamada à cabine:
 const int Hall::call (){
   doc_send.clear();
-  doc_send["origin"] = _mqttClient;
-  doc_send["destination"] = "Cabin-001";
-  doc_send["andarDestino"] = _FLOOR;
+  doc_send["origin"] =_mqttClient;
+  doc_send["destination"] ="Cabin-001";
+  doc_send["andarDestino"] =_FLOOR;
   
   char buffer[MSG_SIZE];
   serializeJson(doc_send, buffer);
   mqtt.publish (buffer);  // envia pedido de chamada
-  // Possivel alteração no método publish de origem, a aplicar o parâmetro 'plength'
+  // Possivel alteração no método publish de origem, se for necessario aplicar o parâmetro 'plength' de 'publish()'
 
 }
 
