@@ -38,6 +38,7 @@
     src="/lib/ESP32 - Wroom - 32D.png"
 />
 
+## Configuração
 
 ```java
     String codigo ="java";
