@@ -61,6 +61,7 @@ void loop (){
       
       hall.call(); // executando publicação de andar do hall
       // tft.setText("Chamando cabine...");
+      digitalWrite(PIN_LED_A, HIGH); // sinal led de cabine em demanda do chamado
       
     }
   }
@@ -69,12 +70,9 @@ void loop (){
 
     setFloorLed (hall.getFloor (), hall.getLastFloorCabin (), hall.getCabinFloor ());
 
-    if (!hall.getCabinState ()){
-      //(Quando a cabine não chegou ainda no andar)
+    if (hall.getCabinState ()){
+      //(Quando a cabine chegou/está no andar)
       
-      digitalWrite(PIN_LED_A, HIGH); // sinal led de cabine em demanda do chamado
-    }
-    else{
       //tft.setText("Chegou!", hall.getFloorCabin ());
       
       if (hall.getCabinDoor ()){
