@@ -1,4 +1,4 @@
-# Esp32 - Intelligent Elevator (Under development...)
+# Esp32 - Intelligent Elevator
 
 ## Estructure
 
@@ -38,13 +38,13 @@
 
 ## Configuration for use in the Arduino IDE:
 
-* Baixar a pasta `Main` de `/src` e abrir na IDE, pois o software funciona se o arquivo main.cpp estiver dentro de uma pasta nomeada de "Main";
-* Pode ser necessário mudar a extensão do arquivo principal (`main.cpp`) para `.ino`;
-* Pode ser necessário que cada arquivo (`.ino`, `.cpp` e `.h`) precise constar na primeira linha: 
-* instalar bibliotecas como __PubSubClient__
+* Download the folder `Main` from `/src` and open on IDE, because the software works if the main.cpp file is inside a folder named "Main";
+* It may be necessary to change the extension of the main file (`main.cpp`) to `.ino`;
+* It may be necessary for each file  (`.ino`, `.cpp` e `.h`) to be listed on the first line:
     ```ino
     #include <Arduino.h>
     ```
+* install the library __PubSubClient__
 
 <!-- ### Ecrã - Pinout
 
