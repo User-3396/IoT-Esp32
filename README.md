@@ -1,6 +1,12 @@
 # Esp32 - Intelligent Elevator (Under development...)
 
-### **Hall implementation**
+## Estructure
+
+| File | Description |
+| - | - |
+| `main.cpp` | General management of the Hall system |
+| `Hall.cpp` | Hall class features and methods |
+| `mqttClient` | MQTT and Wifi connectivity features and methods |
 
 ### Topics
 
@@ -9,10 +15,10 @@
 - ESP32
 - Elevator: Hall functionalities
 
-![](https://img.shields.io/badge/MQTT-black?style=for-the-badge&logo=mqtt&logoColor=green&logoSize=auto)
-![](https://img.shields.io/badge/Espressif-black?style=for-the-badge&logo=espressif&logoColor=green&logoSize=auto)
+<!-- ![](https://img.shields.io/badge/MQTT-black?style=for-the-badge&logo=mqtt&logoColor=green&logoSize=auto)
+![](https://img.shields.io/badge/Espressif-black?style=for-the-badge&logo=espressif&logoColor=green&logoSize=auto) -->
 
-## Esp32
+## Esp32 (models)
 
 | DevKitC v4 (based in wokwi.com) | DOIT DevKit v1 - ESP-Wroom-32D |
 | - | - |
@@ -30,25 +36,17 @@
     src="lib/ESP32 - Wroom - 32D.png"
 />
 
-## Digital display (_GMT130-v1.0_)
+## Configuration for use in the Arduino IDE:
 
-<img 
-    allign="center"  
-    style="width: 300px; border: solid 2px rgb(0, 255, 255);"
-    src="https://abacasstorageaccnt.blob.core.windows.net/cirkit/589453c0-de81-4c0b-ba42-8bb299b8a8d3.png"
-/>
+* Baixar a pasta `Main` de `/src` e abrir na IDE, pois o software funciona se o arquivo main.cpp estiver dentro de uma pasta nomeada de "Main";
+* Pode ser necessário mudar a extensão do arquivo principal (`main.cpp`) para `.ino`;
+* Pode ser necessário que cada arquivo (`.ino`, `.cpp` e `.h`) precise constar na primeira linha: 
+* instalar bibliotecas como __PubSubClient__
+    ```ino
+    #include <Arduino.h>
+    ```
 
-
-## Configuração
-
-```cpp
-    char* codigo ="cpp";
-```
-
----
----
-
-### Ecrã - Pinagem
+<!-- ### Ecrã - Pinout
 
 | Display | DOIT DevKit v1 | DevKitC v4 |
 | - | - | - |
@@ -58,7 +56,7 @@
 | SDA | `D23` `GPIO 23` `MOSI` | `23` `GPIO 23` `WIRE_MOSI` |
 | DC | qualquer digital livre |
 | RST/RES | qualquer digital livre |
-| BKL/BL/LED | `5v` `3V3` | `5V` |
+| BKL/BL/LED | `5v` `3V3` | `5V` |-->
 
 <!-- ## Linguagens e Tecnologias -->
 
