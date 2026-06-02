@@ -1,16 +1,16 @@
 #include <Arduino.h>
-#include <Adafruit_ILI9341.h>
-#include <SPI.h>
-#include <Display.cpp>
-#include <Hall.cpp>
+// #include <Adafruit_ILI9341.h>
+// #include <SPI.h>
+// #include <Display.cpp>
+#include <Hall.h>
 //> Definição dos pinos de controle: --------------------------
 
 // Pinos Display:
-#define TFT_SDA 23      // Pino Reset
-#define TFT_SCK 18     // Pino de Sincronização
-#define TFT_RST  4    // Pino Reset
-#define TFT_DC   2   // Pino Data/Command
-#define TFT_CS  -1  // Pino Chip Selector
+// #define TFT_SDA 23      // Pino Reset
+// #define TFT_SCK 18     // Pino de Sincronização
+// #define TFT_RST  4    // Pino Reset
+// #define TFT_DC   2   // Pino Data/Command
+// #define TFT_CS  -1  // Pino Chip Selector
 
 // Pinos Hall:
 #define PIN_BTN_CALL 5 // Pino do botao de chamada
@@ -28,6 +28,28 @@ Adafruit_ST7789 tft = Adafruit_ST7789(TFT_DC, TFT_RST, TFT_CS);
 */
 
 //int debounce =300;
+
+// > Função para retornar o pino de led correspondente ao distanciamento de andar
+int ledAndar (int x){
+  switch (x){
+    case 1: return PIN_LED1;
+    case 2: return PIN_LED2;
+    case 3: return PIN_LED3;
+    default: return -1; // Retorna -1 se o resultado for inválido
+  }
+}
+
+// > Função para ligar LED de proximidade ----------------------------------
+void setFloorLed (int origin, int last, int current){
+  int dis =abs(origin -last); // distancia do andar anterior da cabine
+  
+  digitalWrite(ledAndar (dis), LOW); // apaga LED de distância anterior
+  
+  dis =abs(origin -current); // distancia do andar atual da cabine
+
+  if (dis != 0) digitalWrite(ledAndar (dis <= 3 ? dis : 3), HIGH); // acende led de distância da cabine
+
+}
 
 void setup (){
   Serial.begin(115200);
@@ -75,7 +97,7 @@ void loop (){
       
       //tft.setText("Chegou!", hall.getFloorCabin ());
       
-      if (hall.getCabinDoor ()){
+      if (hall.getCabinDoor () == 1){
         //(Quando a cabine está com a porta aberta, no andar)
 
         digitalWrite(PIN_LED_A, !digitalRead(PIN_LED_A)); // piscar sinal de porta aberta
@@ -91,24 +113,3 @@ void loop (){
   delay(300); // debounce simples
 }
 
-// > Função para ligar LED de proximidade ----------------------------------
-void setFloorLed (int origin, int last, int current){
-  int dis =abs(origin -last); // distancia do andar anterior da cabine
-  
-  digitalWrite(ledAndar (dis), LOW); // apaga LED de distância anterior
-  
-  dis =abs(origin -current); // distancia do andar atual da cabine
-
-  if (dis != 0) digitalWrite(ledAndar (dis <= 3 ? dis : 3), HIGH); // acende led de distância da cabine
-
-}
-
-// > Função para retornar o pino de led correspondente ao distanciamento de andar
-int ledAndar (int x){
-  switch (x){
-    case 1: return PIN_LED1;
-    case 2: return PIN_LED2;
-    case 3: return PIN_LED3;
-    default: return -1; // Retorna -1 se o resultado for inválido
-  }
-}
