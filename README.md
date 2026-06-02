@@ -44,7 +44,8 @@
     ```ino
     #include <Arduino.h>
     ```
-* install the library __PubSubClient__
+* Install the library __PubSubClient__
+* It is recommended that functions be implemented before they are called, as the IDE may not recognize the signatures.
 
 <!-- ### Ecrã - Pinout
 
