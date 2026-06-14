@@ -4,7 +4,6 @@
             "name": "PlatformIO",
             "includePath": [
                 "c:/Users/User/Documents/VSCode/IoT-Esp32/IoT-Esp32-1/include",
-                "c:/Users/User/Documents/VSCode/IoT-Esp32/IoT-Esp32-1/src",
                 "C:/Users/User/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
                 "c:/Users/User/Documents/VSCode/IoT-Esp32/IoT-Esp32-1/.pio/libdeps/esp32doit-devkit-v1/TFT_eSPI",
                 "C:/Users/User/.platformio/packages/framework-arduinoespressif32/libraries/LittleFS/src",
@@ -245,13 +244,12 @@
                 "C:/Users/User/.platformio/packages/framework-arduinoespressif32/libraries/WiFiClientSecure/src",
                 "C:/Users/User/.platformio/packages/framework-arduinoespressif32/libraries/WiFiProv/src",
                 "",
-                "${workspaceFolder}/src/Iluminacao_Emergencia"
+                "${workspaceFolder}/Iluminacao_Emergencia/src/Main"
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
                     "c:/Users/User/Documents/VSCode/IoT-Esp32/IoT-Esp32-1/include",
-                    "c:/Users/User/Documents/VSCode/IoT-Esp32/IoT-Esp32-1/src",
                     "C:/Users/User/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
                     "c:/Users/User/Documents/VSCode/IoT-Esp32/IoT-Esp32-1/.pio/libdeps/esp32doit-devkit-v1/TFT_eSPI",
                     "C:/Users/User/.platformio/packages/framework-arduinoespressif32/libraries/LittleFS/src",

@@ -1,6 +1,7 @@
+#include <Arduino.h>
 #include <WiFi.h>
 #include <PubSubClient.h>
-#include <MQTTClient.h>
+#include "MQTTClient.h"
 #include <main.cpp>
 
 WiFiClient wifi;
