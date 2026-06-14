@@ -8,16 +8,13 @@
 
 
 void Sensor::start (){
-  Serial.println("Inicializando o sensor...");
   
   // Configurando pinos:
   // pinMode(PIN_BTN_CALL, INPUT_PULLUP); // botão de chamada
   pinMode(PIN_LED_A, OUTPUT);         // led auxiliar
   pinMode(PIN_RELE, OUTPUT);         // led auxiliar
-  // pinMode(PIN_LED1, OUTPUT);         // led de chegada (left 1)r
-  // pinMode(PIN_LED2, OUTPUT);        // led de chegada (left 2)
-  // pinMode(PIN_LED3, OUTPUT);       // led de chegada (left 3)
   
+  Serial.println("success.");
 };
 
 void Sensor::update (){
@@ -25,8 +22,8 @@ void Sensor::update (){
 }
 
 // > Função para ligar LED de proximidade ----------------------------------
-void Sensor::setLed (){
-  
+void Sensor::setLed (bool x){
+  digitalWrite(PIN_LED_A, x ? HIGH : LOW);
 }
 
 // > Função para alternar energia Rele ----------------------------------

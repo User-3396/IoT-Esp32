@@ -11,6 +11,7 @@
 
 Sensor ldr; // Instanciando classe do Sensor
 
+int loopDebounce =300;
 
 // > Função para ligar LED de proximidade ----------------------------------
 void setFloorLed (int origin, int last, int current){
@@ -23,6 +24,8 @@ void setup (){
     //Serial.println("Inicializando Display ST7789 no ESP32...");
     
     Serial.println("Success Starting");
+    
+    Serial.print("Starting LDR... ");
     ldr.start();
 
     // Configurando pinos:
@@ -38,6 +41,6 @@ void loop (){
 
   ldr.update(); // atualizando funcioinalidades do hall
 
-  delay(300); // debounce simples
+  delay(loopDebounce); // debounce simples
 }
 
