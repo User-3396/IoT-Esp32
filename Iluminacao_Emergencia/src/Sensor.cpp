@@ -62,9 +62,9 @@ void Sensor::update (){
 
   // Montando JSON para emergencia:
   doc2.clear();
-  doc1["clientMqttID"] =client.getID ();
-  doc1["type"] ="SE";
-  doc1["emergencia"] =digitalRead(_RELE_PIN) == HIGH ? 1 : 0;
+  doc2["clientMqttID"] =client.getID ();
+  doc2["type"] ="SE";
+  doc2["emergencia"] =digitalRead(_RELE_PIN) == HIGH ? 1 : 0;
   char buffer2[128];
   serializeJson(doc2, buffer2);
 
