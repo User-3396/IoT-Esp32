@@ -9,6 +9,7 @@
             "name": "PlatformIO",
             "includePath": [
                 "c:/Users/User/Documents/VSCode/IoT-Esp32/IoT-Esp32-1/include",
+                "c:/Users/User/Documents/VSCode/IoT-Esp32/IoT-Esp32-1/src",
                 "c:/Users/User/Documents/VSCode/IoT-Esp32/IoT-Esp32-1/.pio/libdeps/esp32doit-devkit-v1/TFT_eSPI",
                 "C:/Users/User/.platformio/packages/framework-arduinoespressif32/libraries/LittleFS/src",
                 "C:/Users/User/.platformio/packages/framework-arduinoespressif32/libraries/SPIFFS/src",
@@ -254,6 +255,7 @@
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
                     "c:/Users/User/Documents/VSCode/IoT-Esp32/IoT-Esp32-1/include",
+                    "c:/Users/User/Documents/VSCode/IoT-Esp32/IoT-Esp32-1/src",
                     "c:/Users/User/Documents/VSCode/IoT-Esp32/IoT-Esp32-1/.pio/libdeps/esp32doit-devkit-v1/TFT_eSPI",
                     "C:/Users/User/.platformio/packages/framework-arduinoespressif32/libraries/LittleFS/src",
                     "C:/Users/User/.platformio/packages/framework-arduinoespressif32/libraries/SPIFFS/src",
