@@ -4,26 +4,22 @@
 
 class Sensor {
   private:
-    //MQTTClient mqtt;        // cliente MQTT específico do Hall
-    const char* _mqttClient; // cliente de conexão MQTT
-    int _FLOOR;             // andar do hall
-    bool _state;           // estado do hall (true: esperando interação; false: escutando informações da cabine)
-    
-  public:
-    //Sensor;
-    void start();
-    void update();
+    const MQTTClient* _mqtt; // cliente de conexão MQTT
+    uint8_t _LDR_PIN;
+    uint8_t _RELE_PIN;
 
-    void getMessage (char* topic, byte* payload, unsigned int length);
-    //const int getButton ();
-    const int call ();
+  public:
+    //Sensor();
+    void attachMqtt (MQTTClient* client){_mqtt =client;}
     
-    // Getters:
-    int getFloor ();
+    void start (const char* clientID, const uint8_t* pins, const uint8_t* modes, int size);
+    void update ();
+
+    void callback (char* topic, byte* payload, unsigned int length);
     
-    // Setters:
-    void setLed (bool x);
+    // void setLed (bool x);
     void setToggleRele (bool x);
+    
 };
 
 #endif

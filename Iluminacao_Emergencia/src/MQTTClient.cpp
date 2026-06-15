@@ -14,27 +14,29 @@ const char* password ="Doi39x-Wa!";
 // Broker MQTT
 const char* mqttServer ="192.168.1.114";
 const int mqttPort =1883; //"HallESP32"
-const char* pubTopic ="rpiot/grupo03/hall/esp32/output"; // tópico de saída/publicação
-const char* subTopic = "/grupo5/elevador/esp32/luminosidade"; // tópico de entrada/assinatura
+const char* pubTopic1 ="rpiot/grupo003/corredor/esp32/luminosidade"; // tópico de saída/publicação
+const char* pubTopic2 ="rpiot/grupo003/corredor/esp32/emergencia"; // tópico de saída/publicação
+const char* subTopic ="rpiot/grupo003/corredor/esp32/emergencia"; // tópico de entrada/assinatura
 // const char* subTopic2 = "grupo5/elevador/chegada"; // tópico de entrada/assinatura
 
 
 // Classe padrao MQTTClient para ambos os clientes (Cabine e Hall):
-MQTTClient::MQTTClient(const char* client_id)
+MQTTClient::MQTTClient()
     : _ssid(ssid), 
     _password(password), 
     _server(mqttServer), 
     _port(mqttPort), 
-    _client_id(client_id), 
+    _client_id(""), 
     _client(wifi) {}
 
 
 // Inicialização MQTT
-void MQTTClient::begin (){
-    Serial.println("Inicializando MQTTClient...");
+void MQTTClient::begin (const char* id){
+    _client_id =id; //strcpy(destino, origem);
     setupWifi (); // configurando conexão wifi
-    _client.subscribe(subTopic); // inscrição para receber o andar em que a cabine está
-    // _client.subscribe(subTopic2); // inscrição para saber se a cabine chegou
+    _client.subscribe(subTopic); // inscrição para receber o comando do rele.
+    // _client.subscribe(subTopic2); // 
+
 }
 
 void MQTTClient::loop (){
@@ -87,7 +89,9 @@ void MQTTClient::setCallback (MQTT_CALLBACK_SIGNATURE){
 }
 
 // Função para publicar num topico
-void MQTTClient::publish (const char* payload){
-    _client.publish(pubTopic, payload);
+void MQTTClient::publish (const char* payload1, const char* payload2){
+    _client.publish(pubTopic1, payload1);
+    _client.publish(pubTopic2, payload2);
 }
 
+const char* MQTTClient::getID (){return _client_id;}

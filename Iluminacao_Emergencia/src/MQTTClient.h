@@ -15,14 +15,15 @@ class MQTTClient {
         const int _port;
 
     public:
-        MQTTClient(const char* client_id);
+        MQTTClient();
 
-    void begin();
+    void begin(const char* client_id);
     void loop();
     void setupWifi();
     void MQTTConnectionCheckup();
     void setCallback(MQTT_CALLBACK_SIGNATURE);
-    void publish(const char* payload);
+    void publish(const char* payload1, const char* payload2);
+    const char* getID ();
 };
 
 #endif

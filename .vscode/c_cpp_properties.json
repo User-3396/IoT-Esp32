@@ -1,10 +1,14 @@
+//
+// !!! WARNING !!! AUTO-GENERATED FILE!
+// PLEASE DO NOT MODIFY IT AND USE "platformio.ini":
+// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags
+//
 {
     "configurations": [
         {
             "name": "PlatformIO",
             "includePath": [
                 "c:/Users/User/Documents/VSCode/IoT-Esp32/IoT-Esp32-1/include",
-                "C:/Users/User/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
                 "c:/Users/User/Documents/VSCode/IoT-Esp32/IoT-Esp32-1/.pio/libdeps/esp32doit-devkit-v1/TFT_eSPI",
                 "C:/Users/User/.platformio/packages/framework-arduinoespressif32/libraries/LittleFS/src",
                 "C:/Users/User/.platformio/packages/framework-arduinoespressif32/libraries/SPIFFS/src",
@@ -241,16 +245,15 @@
                 "C:/Users/User/.platformio/packages/framework-arduinoespressif32/libraries/USB/src",
                 "C:/Users/User/.platformio/packages/framework-arduinoespressif32/libraries/Update/src",
                 "C:/Users/User/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src",
+                "C:/Users/User/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
                 "C:/Users/User/.platformio/packages/framework-arduinoespressif32/libraries/WiFiClientSecure/src",
                 "C:/Users/User/.platformio/packages/framework-arduinoespressif32/libraries/WiFiProv/src",
-                "",
-                "${workspaceFolder}/Iluminacao_Emergencia/src/Main"
+                ""
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
                     "c:/Users/User/Documents/VSCode/IoT-Esp32/IoT-Esp32-1/include",
-                    "C:/Users/User/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
                     "c:/Users/User/Documents/VSCode/IoT-Esp32/IoT-Esp32-1/.pio/libdeps/esp32doit-devkit-v1/TFT_eSPI",
                     "C:/Users/User/.platformio/packages/framework-arduinoespressif32/libraries/LittleFS/src",
                     "C:/Users/User/.platformio/packages/framework-arduinoespressif32/libraries/SPIFFS/src",
@@ -487,6 +490,7 @@
                     "C:/Users/User/.platformio/packages/framework-arduinoespressif32/libraries/USB/src",
                     "C:/Users/User/.platformio/packages/framework-arduinoespressif32/libraries/Update/src",
                     "C:/Users/User/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src",
+                    "C:/Users/User/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
                     "C:/Users/User/.platformio/packages/framework-arduinoespressif32/libraries/WiFiClientSecure/src",
                     "C:/Users/User/.platformio/packages/framework-arduinoespressif32/libraries/WiFiProv/src",
                     ""

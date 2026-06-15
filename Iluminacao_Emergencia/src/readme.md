@@ -43,10 +43,12 @@ O __sensor LDR__ monitora a luz ambiente. Em caso de uma queda súbita e acentua
     - VCC -> 3.3V 
     - GND -> GND 
     - A0 -> GPIO02
+
 - __Módulo Relé -> ESP32__: 
     - VCC -> VIN (5V) 
     - GND -> GND 
     - IN -> GPIO04 
+    
 - __Módulo Relé -> LED__: 
     - COM -> 5V 
     - NC -> Anodo (+) 
