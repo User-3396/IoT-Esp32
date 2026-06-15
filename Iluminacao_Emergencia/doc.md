@@ -190,3 +190,11 @@ style="
 
 https://dillinger.io/
 
+![ofdjj](https://placehold.co/600x200/2B2F36/35D7BB?text=Your+Image+Here)
+
+$$
+\sum_{i=1}^{n} i = \frac{n(n+1)}{2}
+$$
+
+%%MAGIT_PARSER_PROTECT%%  javascript console.log("Olá, Mundo!"); 
+%%MAGIT_PARSER_PROTECT%%
