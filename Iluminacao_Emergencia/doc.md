@@ -76,6 +76,7 @@ void Sensor::start (const char* clientID, const uint8_t* pins ,const uint8_t* mo
     // (...)
 }
 ```
+
 - configuração dos pinos do LDR:
 
 ```cpp
@@ -88,18 +89,45 @@ _RELE_PIN =pins[1];
 - chamada da função de atualização do ciclo MQTT:
 
 ```cpp
+MQTTClient client;
+
 void Sensor::update (){
     client.loop();
 ```
 
-- 
+- Montagem do JSON de publicação da luminosidade:
+
+```cpp
+  doc1.clear();
+  doc1["clientMqttID"] =client.getID ();
+  doc1["type"] ="SE";
+  doc1["luminosidade"] =analogRead(_LDR_PIN);
+  char buffer1[128];
+  serializeJson(doc1, buffer1);
+```
+
+- Montagem do JSON de publicação da emergencia (estado do relé):
+
+```cpp
+  doc2.clear();
+  doc2["clientMqttID"] =client.getID ();
+  doc2["type"] ="SE";
+  doc2["emergencia"] =digitalRead(_RELE_PIN) == HIGH ? 1 : 0;
+  char buffer2[128];
+  serializeJson(doc2, buffer2);
+```
+
+Saída: 
+
+```bash 
+'{"clientMqttID": "corredor-001", "type": "SE", "luminosidade": 200}'
+'{"clientMqttID": "corredor-001", "type": "SE", "emergencia": 0}'
+```
 
 <br>
 
 <div align="center" 
 style="
-    padding:0px;
-    margin:0px;
     background-color:rgb(30,30,30); 
     color:rgb(255,185,0);
     border: 2px solid rgb(60,60,60);
@@ -120,8 +148,6 @@ style="
 
 <div align="center" 
 style="
-    padding:0px;
-    margin:0px;
     background-color:rgb(30,30,30); 
     color:rgb(255,185,0);
     border: 2px solid rgb(60,60,60);
