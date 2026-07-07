@@ -2,7 +2,7 @@
 #include <WiFi.h>
 #include <PubSubClient.h>
 #include "MQTTClient.h"
-#include <main.cpp>
+// #include <main.cpp>
 
 WiFiClient wifi;
 PubSubClient mqttClient;
@@ -15,8 +15,8 @@ const char* password ="Doi39x-Wa!";
 const char* mqttServer ="192.168.1.107";
 const int mqttPort =1883; //"HallESP32"
 const char* pubTopic1 ="rpiot/grupo3/corredor/esp32/luminosidade"; // tópico de saída/publicação
-const char* pubTopic2 ="rpiot/grupo3/corredor/esp32/emergencia"; // tópico de saída/publicação
-const char* subTopic ="rpiot/grupo3/corredor/esp32/emergencia"; // tópico de entrada/assinatura
+const char* pubTopic2 ="rpiot/grupo3/corredor/esp32/emergencia";   // tópico de saída/publicação
+const char* subTopic  ="rpiot/grupo3/corredor/esp32/emergencia";   // tópico de entrada/assinatura
 // const char* subTopic2 = "grupo5/elevador/chegada"; // tópico de entrada/assinatura
 
 

@@ -15,10 +15,10 @@ class Sensor {
     void start (const char* clientID, const uint8_t* pins, const uint8_t* modes, int size);
     void update ();
 
-    void callback (char* topic, byte* payload, unsigned int length);
+    void callback (const char* topic, byte* payload, unsigned int length);
     
     // void setLed (bool x);
-    void setToggleRele (bool x);
+    void setToggleRele (int x);
     
 };
 

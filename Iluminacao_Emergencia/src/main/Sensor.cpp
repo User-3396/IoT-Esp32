@@ -1,36 +1,32 @@
-// #include <Arduino.h>
-#include "Sensor.h"
-#include "MQTTClient.h"
+#include <Arduino.h>
 #include <ArduinoJson.h>   // pra enviar/receber mensagens em JSON
+#include "Sensor.h"
+#include "MQTTClient.cpp"
+#include "MQTTClient.h"
 
 MQTTClient client;
 DynamicJsonDocument doc1(256);
 DynamicJsonDocument doc2(256);
 
-// > Função para alternar energia de LED ----------------------------------
-// void Sensor::setLed (bool x){
-//   digitalWrite(PIN_LED_A, x ? HIGH : LOW);
-// }
-
 // > Função para alternar energia Rele ----------------------------------
-void Sensor::setToggleRele (bool x){
-  digitalWrite(_RELE_PIN, x ? HIGH : LOW);
+void Sensor::setToggleRele (int x){
+  digitalWrite(_RELE_PIN, (x == 1) ? HIGH : LOW);
 }
 
 // > Recepção de mensagem MQTT ----------------------
-void Sensor::callback (char* topic, byte* payload, unsigned int length){
+void Sensor::callback (const char* topic, byte* payload, unsigned int length){
   DynamicJsonDocument doc(256);
-  if (deserializeJson(doc, payload, length) == DeserializationError::Ok) {
-    // if (strcmp(topic, "grupo5/sensor/led") == 0){
-    //   bool estado = doc["led"];
-    //   setLed(estado);
-    // }
-    // else if (strcmp(topic, "grupo5/sensor/rele") == 0){
-    //   bool estado = doc["rele"];
-    //   setToggleRele(estado);
+  DeserializationError error =deserializeJson(doc, payload, length);
+
+  if (!error){
+    // if (strcmp(topic, "rpiot/grupo3/corredor/esp32/emergencia") == 0){
+      setToggleRele(doc["emergencia"]);
     // }
   }
-  else Serial.println("Erro JSON.");
+  else {
+    Serial.print("Callback: Erro JSON: ");
+    Serial.println(error.c_str());
+  }
 }
 
 // Função de inicialização: --------------------------
@@ -56,6 +52,9 @@ void Sensor::update (){
   doc1.clear();
   doc1["clientMqttID"] =client.getID ();
   doc1["type"] ="SE";
+  // Lê o valor analógico do sensor (0 a 4095)
+  // Converte o valor do ADC para Voltagem (0.0V a 3.3V)
+  // float ldrVolts = (analogRead(_LDR_PIN) * 3.3) / 4095.0;
   doc1["luminosidade"] =analogRead(_LDR_PIN);
   char buffer1[128];
   serializeJson(doc1, buffer1);

@@ -3,12 +3,12 @@
 #include "Sensor.h"
 
 //> Definição dos pinos de controle: --------------------------
-#define PIN_LDR   2 // Pino AO do LDR (variação de luminosidade)
+#define PIN_LDR  2 // Pino AO do LDR (variação de luminosidade)
 // #define PIN_LDR2  4 // Pino DO do LDR (simples)
-#define PIN_RELE  4 // Pino IN do Rele
+#define PIN_RELE 4 // Pino IN do Rele
 
 const uint8_t pins[]  ={PIN_LDR, PIN_RELE};
-const uint8_t modes[] ={INPUT, OUTPUT};
+const uint8_t modes[] ={INPUT,   OUTPUT};
 
 Sensor ldr; // Declarando a classe Sensor
 
@@ -21,7 +21,7 @@ void setup (){
   Serial.print("Starting LDR: ");
 
   // Iniciando as configurações do sensor (ldr [Sensor])
-  // Params: 
+  // Parametros: 
   // - id do cliente: "corredor-001"
   // - pinos: pins
   // - modos de operação dos pinos: modes
