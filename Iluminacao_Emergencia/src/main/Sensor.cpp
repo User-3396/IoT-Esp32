@@ -1,6 +1,6 @@
 // #include <Arduino.h>
 #include "Sensor.h"
-#include "MQTTClient.cpp"
+#include "MQTTClient.h"
 #include <ArduinoJson.h>   // pra enviar/receber mensagens em JSON
 
 MQTTClient client;

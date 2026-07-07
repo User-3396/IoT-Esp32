@@ -12,11 +12,11 @@ const char* ssid ="ProjetoMInDS";
 const char* password ="Doi39x-Wa!";
 
 // Broker MQTT
-const char* mqttServer ="192.168.1.114";
+const char* mqttServer ="192.168.1.107";
 const int mqttPort =1883; //"HallESP32"
-const char* pubTopic1 ="rpiot/grupo003/corredor/esp32/luminosidade"; // tópico de saída/publicação
-const char* pubTopic2 ="rpiot/grupo003/corredor/esp32/emergencia"; // tópico de saída/publicação
-const char* subTopic ="rpiot/grupo003/corredor/esp32/emergencia"; // tópico de entrada/assinatura
+const char* pubTopic1 ="rpiot/grupo3/corredor/esp32/luminosidade"; // tópico de saída/publicação
+const char* pubTopic2 ="rpiot/grupo3/corredor/esp32/emergencia"; // tópico de saída/publicação
+const char* subTopic ="rpiot/grupo3/corredor/esp32/emergencia"; // tópico de entrada/assinatura
 // const char* subTopic2 = "grupo5/elevador/chegada"; // tópico de entrada/assinatura
 
 
@@ -83,7 +83,7 @@ void MQTTClient::MQTTConnectionCheckup (){
     }
 }
 
-// 
+// Função para receber 
 void MQTTClient::setCallback (MQTT_CALLBACK_SIGNATURE){
     _client.setCallback(callback);
 }
